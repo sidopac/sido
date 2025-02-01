@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إدارة الطلبات</title>
+</head>
+<body>
+    <h1>نظام الطلبات</h1>
+    <input type="text" id="orderText" placeholder="اكتب طلبك هنا">
+    <button onclick="sendOrder()">إرسال الطلب</button>
+
+    <script>
+        function sendOrder() {
+            const orderText = document.getElementById("orderText").value;
+            fetch("/order", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ order: orderText })
+            })
+            .then(res => res.json())
+            .then(data => alert(data.message))
+            .catch(err => console.error("Error:", err));
+        }
+    </script>
+</body>
+</html>
